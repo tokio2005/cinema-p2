@@ -1,4 +1,4 @@
 import { PartialType } from '@nestjs/swagger';
 import { CreateSessaoDto } from './create-sessoe.dto';
 
-export class UpdateSessoeDto extends PartialType(CreateSessaoDto) {}
+export class UpdateSessaoDto extends PartialType(CreateSessaoDto) {}

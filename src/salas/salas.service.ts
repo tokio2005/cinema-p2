@@ -1,12 +1,38 @@
-import { IsDateString, IsInt } from 'class-validator';
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { CreateSalaDto } from './dto/create-sala.dto';
+import { UpdateSalaDto } from './dto/update-sala.dto';
 
-export class CreateSessaoDto {
-  @IsDateString()
-  dataHora!: string;
+@Injectable()
+export class SalasService {
+  constructor(private prisma: PrismaService) {}
 
-  @IsInt()
-  filmeId!: number;
+  create(createSalaDto: CreateSalaDto) {
+    return this.prisma.sala.create({
+      data: createSalaDto,
+    });
+  }
 
-  @IsInt()
-  salaId!: number;
+  findAll() {
+    return this.prisma.sala.findMany();
+  }
+
+  findOne(id: number) {
+    return this.prisma.sala.findUnique({
+      where: { id },
+    });
+  }
+
+  update(id: number, updateSalaDto: UpdateSalaDto) {
+    return this.prisma.sala.update({
+      where: { id },
+      data: updateSalaDto,
+    });
+  }
+
+  remove(id: number) {
+    return this.prisma.sala.delete({
+      where: { id },
+    });
+  }
 }

@@ -1,26 +1,47 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateSessaoDto } from './dto/create-sessoe.dto';
-import { UpdateSessoeDto } from './dto/update-sessoe.dto';
+import { UpdateSessaoDto } from './dto/update-sessoe.dto';
 
 @Injectable()
 export class SessoesService {
-  create(createSessoeDto: CreateSessaoDto) {
-    return 'This action adds a new sessoe';
+  constructor(private prisma: PrismaService) {}
+
+  create(createSessaoDto: CreateSessaoDto) {
+    return this.prisma.sessao.create({
+      data: createSessaoDto,
+    });
   }
 
   findAll() {
-    return `This action returns all sessoes`;
+    return this.prisma.sessao.findMany({
+      include: {
+        filme: true,
+        sala: true,
+      },
+    });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} sessoe`;
+    return this.prisma.sessao.findUnique({
+      where: { id },
+      include: {
+        filme: true,
+        sala: true,
+      },
+    });
   }
 
-  update(id: number, updateSessoeDto: UpdateSessoeDto) {
-    return `This action updates a #${id} sessoe`;
+  update(id: number, updateSessaoDto: UpdateSessaoDto) {
+    return this.prisma.sessao.update({
+      where: { id },
+      data: updateSessaoDto,
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} sessoe`;
+    return this.prisma.sessao.delete({
+      where: { id },
+    });
   }
 }
