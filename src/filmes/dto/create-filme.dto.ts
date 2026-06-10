@@ -1,23 +1,29 @@
 import { IsInt, IsNotEmpty, IsString, Min } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateFilmeDto {
+  @ApiProperty()
   @IsString()
-  @IsNotEmpty()
-  titulo!: string;
+    @IsNotEmpty()
+      titulo!: string;
 
-  @IsString()
-  @IsNotEmpty()
-  sinopse!: string;
+        @ApiProperty()
+        @IsString()
+          @IsNotEmpty()
+            sinopse!: string;
 
-  @IsString()
-  @IsNotEmpty()
-  genero!: string;
+               @ApiProperty()
+              @IsString()
+                @IsNotEmpty()
+                  genero!: string;
 
-  @IsInt()
-  @Min(1)
-  duracao!: number;
+                    @ApiProperty()
+                    @IsInt()
+                      @Min(1)
+                        duracao!: number;
 
-  @IsString()
-  @IsNotEmpty()
-  classificacao!: string;
-}
+                          @ApiProperty()
+                          @IsString()
+                            @IsNotEmpty()
+                              classificacao!: string;
+                              }
